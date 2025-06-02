@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path'); // Você vai precisar disso para caminhos de arquivo
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
@@ -67,6 +68,25 @@ app.put('/products/:id', (req, res) => {
 });
 
 // Rota para deletar um produto
+// --- SUAS ROTAS DA API ---
+// ... (seu código das rotas /products) ...
+
+// NOVA ROTA DE LOGIN (Exemplo bem simples para a faculdade)
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // ATENÇÃO: Isso é um EXEMPLO SUPER SIMPLES para seu trabalho.
+    // Em um projeto real, senhas NUNCA são guardadas assim!
+    if (username === 'faculdade' && password === '123') {
+        console.log('Login bem-sucedido para:', username);
+        res.json({ message: 'Login OK!', isLoggedIn: true }); // Envia uma resposta de sucesso
+    } else {
+        console.log('Falha no login para:', username);
+        res.status(401).json({ error: 'Usuário ou senha inválidos.', isLoggedIn: false }); // Erro de não autorizado
+    }
+});
+
+// --- FIM DAS SUAS ROTAS DA API ---
 app.delete('/products/:id', (req, res) => {
     const productId = parseInt(req.params.id);
     const initialLength = products.length;
